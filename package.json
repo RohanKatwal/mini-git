@@ -1,0 +1,21 @@
+{
+  "name": "mini-github-ejs",
+  "version": "1.0.0",
+  "description": "A tiny GitHub-like demo built with Node.js, Express, and EJS.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dayjs": "^1.11.13",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "method-override": "^3.0.0",
+    "nanoid": "^5.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
