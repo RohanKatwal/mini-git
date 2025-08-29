@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>mini-git • Home</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <%- include('partials_header') %>
+      <div class="grid">
+        <div class="card">
+          <h2>Create a repository</h2>
+          <form method="POST" action="/repos">
+            <div class="form-row-1">
+              <label>Repository name</label>
+              <input class="input" name="name" placeholder="awesome-project" required />
+            </div>
+            <div class="space"></div>
+            <div class="form-row-1">
+              <label>Description</label>
+              <textarea class="input" name="description" rows="2" placeholder="What is this repo about?"></textarea>
+            </div>
+            <div class="space"></div>
+            <div class="form-row">
+              <div>
+                <label>Owner</label>
+                <input class="input" name="owner" placeholder="guest" />
+              </div>
+              <div>
+                <label>Visibility</label>
+                <select class="input" name="visibility">
+                  <option value="public">Public</option>
+                  <option value="private">Private</option>
+                </select>
+              </div>
+            </div>
+            <div class="space"></div>
+            <button class="btn" type="submit">Create repository</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2>Repositories</h2>
+          <% if (repos.length === 0) { %>
+            <p class="small">No repositories yet. Create your first one!</p>
+          <% } else { %>
+            <ul>
+              <% repos.forEach(r => { %>
+                <li style="margin-bottom:10px">
+                  <a class="repo-title" href="/repo/<%= r.id %>"><%= r.owner %>/<%= r.name %></a>
+                  <div class="small"><%= r.description || "No description" %></div>
+                  <div class="small">Created <%= dayjs(r.createdAt).format("YYYY-MM-DD HH:mm") %></div>
+                </li>
+              <% }) %>
+            </ul>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
