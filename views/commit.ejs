@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>mini-git • <%= repo.name %> • commit <%= commit.id %></title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <%- include('partials_header') %>
+      <div class="card">
+        <h2>Commit <span class="mono"><%= commit.id %></span></h2>
+        <p><strong>Message:</strong> <%= commit.message %></p>
+        <p class="small">Committed <%= dayjs(commit.timestamp).format("YYYY-MM-DD HH:mm") %></p>
+        <hr/>
+        <h3>Files at this commit</h3>
+        <% if (commit.filesSnapshot.length === 0) { %>
+          <p class="small">No files in this snapshot.</p>
+        <% } else { %>
+          <ul>
+            <% commit.filesSnapshot.forEach(f => { %>
+              <li style="margin-bottom:10px">
+                <div class="mono"><%= f.name %></div>
+                <pre><code><%- f.content %></code></pre>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+        <a class="btn" href="/repo/<%= repo.id %>/commits">← Back to commits</a>
+      </div>
+    </div>
+  </body>
+</html>
