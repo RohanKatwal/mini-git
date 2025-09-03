@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>mini-git • <%= repo.name %> • commits</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <%- include('partials_header') %>
+      <div class="card">
+        <h2>Commit history</h2>
+        <ul>
+          <% commits.forEach(c => { %>
+            <li style="margin-bottom:12px">
+              <a href="/repo/<%= repo.id %>/commit/<%= c.id %>" class="mono"><%= c.id %></a>
+              — <%= c.message %>
+              <span class="small"> • <%= dayjs(c.timestamp).format("YYYY-MM-DD HH:mm") %></span>
+            </li>
+          <% }) %>
+        </ul>
+        <a class="btn" href="/repo/<%= repo.id %>">← Back to repo</a>
+      </div>
+    </div>
+  </body>
+</html>
