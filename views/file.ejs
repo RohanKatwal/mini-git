@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>mini-git • <%= repo.name %> • <%= file.name %></title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <%- include('partials_header') %>
+      <div class="card">
+        <div class="flex" style="justify-content:space-between">
+          <div>
+            <div class="repo-title"><%= file.name %></div>
+            <div class="small">Updated <%= dayjs(file.updatedAt).format("YYYY-MM-DD HH:mm") %></div>
+          </div>
+          <form method="POST" action="/repo/<%= repo.id %>/file/<%= file.id %>?_method=DELETE">
+            <button class="btn btn-danger" type="submit">Delete file</button>
+          </form>
+        </div>
+        <hr/>
+        <pre><code><%- file.content %></code></pre>
+        <div class="space"></div>
+        <a class="btn" href="/repo/<%= repo.id %>">← Back to repo</a>
+      </div>
+    </div>
+  </body>
+</html>
