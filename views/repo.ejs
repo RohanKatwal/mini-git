@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>mini-git • <%= repo.name %></title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <%- include('partials_header') %>
+      <div class="card">
+        <div class="flex">
+          <h2 style="margin:0"><%= repo.owner %>/<%= repo.name %></h2>
+          <a class="btn" href="/repo/<%= repo.id %>/commits">View commits</a>
+        </div>
+        <p class="small"><%= repo.description || "No description" %> • <%= repo.visibility %></p>
+      </div>
+
+      <div class="grid" style="margin-top:16px">
+        <div class="card">
+          <h3>Files</h3>
+          <% if (repo.files.length === 0) { %>
+            <p class="small">No files yet. Add a file below.</p>
+          <% } else { %>
+            <ul>
+              <% repo.files.forEach(f => { %>
+                <li style="margin-bottom:10px">
+                  <a class="mono" href="/repo/<%= repo.id %>/file/<%= f.id %>"><%= f.name %></a>
+                  <span class="small"> • updated <%= dayjs(f.updatedAt).format("YYYY-MM-DD HH:mm") %></span>
+                </li>
+              <% }) %>
+            </ul>
+          <% } %>
+        </div>
+
+        <div class="card">
+          <h3>Add / Update a file</h3>
+          <form method="POST" action="/repo/<%= repo.id %>/files">
+            <div class="form-row-1">
+              <label>Filename (e.g. README.md)</label>
+              <input class="input" name="filename" required />
+            </div>
+            <div class="space"></div>
+            <div class="form-row-1">
+              <label>Content</label>
+              <textarea class="input mono" name="content" rows="10" placeholder="# Hello mini-git"></textarea>
+            </div>
+            <div class="space"></div>
+            <div class="form-row-1">
+              <label>Commit message</label>
+              <input class="input" name="message" placeholder="Add README" />
+            </div>
+            <div class="space"></div>
+            <button class="btn" type="submit">Commit changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
